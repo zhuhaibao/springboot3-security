@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    input[type=text], input[type=password], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    input[type=submit], input[type=button] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type=submit]:hover, input[type=button]:hover {
+        background-color: #45a049;
+    }
+
+    .main {
+        width: 50%;
+        margin: auto;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+
+    fieldset {
+        border: 1px dashed #dad2d2;
+    }
+
+    legend {
+        text-align: center;
+    }
+
+    .hrDiv {
+        margin: 20px 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .hrClassLeft {
+        width: 40%;
+    }
+
+    .hrClassRight {
+        width: 40%;
+    }
+
+    .sign {
+        margin-top: 10px;
+        background-color: #c16c6c;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .sign svg {
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+    }
+
+    .sign a {
+        text-decoration: none;
+    }
+
+    .sign a:visited {
+        color: #cccccc;
+    }
+
+    .sign:hover {
+        background-color: #a04550;
+    }
+</style>
+<body>
+
+
+<div class="main">
+    <fieldset>
+        <legend>Form Login</legend>
+        <form th:href="@{/login}" method="post">
+            <label for="username">username</label>
+            <input type="text" id="username" name="username" placeholder="username..">
+
+            <label for="password">password</label>
+            <input type="password" id="password" name="password" placeholder="password..">
+
+            <label for="area">Area</label>
+            <select id="area" name="area">
+                <option value="North America">North America</option>
+                <option value="East Asia">East Asia</option>
+                <option value="Africa">Africa</option>
+                <option value="Europe">Europe</option>
+            </select>
+
+            <input type="submit" value="Submit">
+        </form>
+    </fieldset>
+    <div class="hrDiv">
+        <hr class="hrClassLeft">
+        <div class="orClass">OR</div>
+        <hr class="hrClassRight">
+    </div>
+    <fieldset>
+        <legend>Oauth2 Login</legend>
+        <div class="sign">
+            <a href="/oauth2/authorization/google">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.6 10.23c0-.82-.1-1.42-.25-2.05H10v3.72h5.5c-.15.96-.74 2.31-2.04 3.22v2.45h3.16c1.89-1.73 2.98-4.3 2.98-7.34z"
+                          fill="#4285F4"></path>
+                    <path d="M13.46 15.13c-.83.59-1.96 1-3.46 1-2.64 0-4.88-1.74-5.68-4.15H1.07v2.52C2.72 17.75 6.09 20 10 20c2.7 0 4.96-.89 6.62-2.42l-3.16-2.45z"
+                          fill="#34A853"></path>
+                    <path d="M3.99 10c0-.69.12-1.35.32-1.97V5.51H1.07A9.973 9.973 0 0 0 0 10c0 1.61.39 3.14 1.07 4.49l3.24-2.52c-.2-.62-.32-1.28-.32-1.97z"
+                          fill="#FBBC05"></path>
+                    <path d="M10 3.88c1.88 0 3.13.81 3.85 1.48l2.84-2.76C14.96.99 12.7 0 10 0 6.09 0 2.72 2.25 1.07 5.51l3.24 2.52C5.12 5.62 7.36 3.88 10 3.88z"
+                          fill="#EA4335"></path>
+                </svg>
+                SIGN IN WITH GOOGLE
+            </a>
+        </div>
+        <div class="sign">
+            <a href="/oauth2/authorization/github">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                            d="M12.5.75C6.146.75 1 5.896 1 12.25c0 5.089 3.292 9.387 7.863 10.91.575.101.79-.244.79-.546 0-.273-.014-1.178-.014-2.142-2.889.532-3.636-.704-3.866-1.35-.13-.331-.69-1.352-1.18-1.625-.402-.216-.977-.748-.014-.762.906-.014 1.553.834 1.769 1.179 1.035 1.74 2.688 1.25 3.349.948.1-.747.402-1.25.733-1.538-2.559-.287-5.232-1.279-5.232-5.678 0-1.25.445-2.285 1.178-3.09-.115-.288-.517-1.467.115-3.048 0 0 .963-.302 3.163 1.179.92-.259 1.897-.388 2.875-.388.977 0 1.955.13 2.875.388 2.2-1.495 3.162-1.179 3.162-1.179.633 1.581.23 2.76.115 3.048.733.805 1.179 1.825 1.179 3.09 0 4.413-2.688 5.39-5.247 5.678.417.36.776 1.05.776 2.128 0 1.538-.014 2.774-.014 3.162 0 .302.216.662.79.547C20.709 21.637 24 17.324 24 12.25 24 5.896 18.854.75 12.5.75Z"
+                    />
+                </svg>
+                SIGN IN WITH GITHUB
+            </a>
+        </div>
+        <div class="sign">
+            <a href="/oauth2/authorization/naver">
+                <svg viewBox="0 0 24 24" fill="#45a049" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.273 12.845 7.376 0H0v24h7.727V11.155L16.624 24H24V0h-7.727v12.845z"></path>
+                </svg>
+                SIGN IN WITH NAVER
+            </a>
+        </div>
+    </fieldset>
+</div>
+</body>
+</html>
+
+

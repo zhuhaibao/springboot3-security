@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        body {
+            margin: 0;
+        }
+
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover:not(.active) {
+            background-color: #111;
+        }
+
+        .active {
+            background-color: #04AA6D;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <ul id="nav">
+        <li><a class="active" href="#Home" onclick="return false">Home</a></li>
+        <li><a href="#Orders" onclick="return false">Orders</a></li>
+        <li><a href="#Customers" onclick="return false">Customers</a></li>
+        <li><a href="#About" onclick="return false">About</a></li>
+        <li id="logout"><a th:href="@{/logout}">로그아웃</a></li>
+    </ul>
+
+    <div style="padding:20px;margin-top:30px;background-color:#71e4cd;height:800px;">
+        <h1 id="result">Home</h1>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    (async () => {
+        localStorage.setItem("sign", [[${sign}]]);// store token
+        let param = document.getElementById("nav").querySelector("a[class='active']").href;
+        param = param.substring(param.indexOf("#") + 1);
+        req(param); //request with token
+    })();
+    document.getElementById("nav").addEventListener('click', function (e) {
+        let li = e.target.closest("li");
+        if (!li) return;
+        if (li.id === 'logout') return;
+        document.getElementById("nav").querySelector("a[class='active']").classList.remove('active');
+        li.firstElementChild.classList.add("active");
+        let param = li.firstElementChild.href;
+        param = param.substring(param.indexOf("#") + 1);
+
+        req(param);
+    });
+
+    function req(param) {
+        if (!localStorage.getItem("sign")) window.location.assign("/login");
+        fetch("/resource/" + param, {
+            method: 'POST',
+            headers: {Authorization: `Bearer ${localStorage.getItem("sign")}`}
+        })
+            .then(rsp => rsp.text())
+            .then(r => {
+                document.getElementById("result").innerText = r;
+            }).catch(e => {
+                console.log(e);
+                alert(e);
+                window.location.assign("/login");
+            }
+        );
+    }
+</script>
+</body>
+</html>
+
+

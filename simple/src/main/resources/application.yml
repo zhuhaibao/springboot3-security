@@ -1,0 +1,10 @@
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
+spring:
+  security:
+    user:
+      name: user
+      password: 123
